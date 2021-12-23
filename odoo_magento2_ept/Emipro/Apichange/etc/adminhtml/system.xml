@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="emipro" translate="label" sortOrder="400">
+            <label>Emipro</label>
+        </tab>
+        <section id="apichange" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="0">
+             <label> Emipro-Webhook </label>
+             <tab>emipro</tab>
+             <resource>Emipro_Apichange::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Enable Webhook</label>
+                <field id="enabled" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Webhook</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Apply Webhook with odoo domain]]></comment>
+                </field>
+            </group>
+            <group id="urlconfig" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <depends>
+                    <field id="apichange/general/enabled">1</field>
+                </depends>
+                <label>Configure Webhook</label>
+                <field id="url" translate="webhook url" type="text" sortOrder="10" showInDefault="1">
+                    <label>ERP Url</label>
+                    <comment><![CDATA[ex. :- http://192.168.0.140:8089 or http://www.odoodomain.com]]></comment>
+                </field>
+                <field id="placeorder" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Apply on Place Order :- </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Order will create in odoo when place order in store]]></comment>
+                </field>
+                <!-- <field id="createinvoice" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Apply on Create Invoice :- </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Invoice will create in odoo when invoice is created in store]]></comment>
+                </field> -->
+                <field id="cancelorder" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Apply on Cancel Order :- </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Order will cancel in odoo when order is cancel in store]]></comment>
+                </field>
+                <!-- <field id="createcustomer" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Apply on New Customer :- </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Customer will create in odoo when customer create registration in store]]></comment>
+                </field>
+                <field id="createproduct" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Apply on New Product :- </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Product will create in odoo when add new product in store]]></comment>
+                </field> -->
+            </group>
+        </section>
+    </system>
+</config>

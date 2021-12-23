@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--This is a comman view for queue process wizard-->
+        <record id="view_queue_process_action" model="ir.ui.view">
+            <field name="name">Queue Process Action</field>
+            <field name="model">magento.queue.process.ept</field>
+            <field name="priority">11</field>
+            <field name="arch" type="xml">
+                <form string="Manually Queue Process">
+                    <sheet>
+                        <group name='magento_process_queue_manually'>
+                            <group>
+                                <div class="oe_grey" colspan="2" style="color:#000000">
+                                    Syncing the data
+                                    will manually add the record into the Odoo. Use
+                                    this to add
+                                    the
+                                    record if the status is shown as failed or draft.
+                                </div>
+                            </group>
+                        </group>
+                        <footer>
+                            <button string="Process Queues Manually" class="oe_highlight"
+                                    type="object" name="magento_manual_queue_process"
+                                    invisible="context.get('queue_process','') not in ['process_order_queue_manually','process_product_queue_manually','process_customer_queue_manually']"/>
+                            <button string="Cancel" class="oe_highlight" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Process Queue Manually" res_model="magento.queue.process.ept"
+                    binding_model="magento.order.data.queue.ept" view_mode="form"
+                    target="new" id="action_wizard_magento_import_order"
+                    view_id="view_queue_process_action"
+                    context="{'queue_process':'process_order_queue_manually'}"/>
+
+        <act_window name="Process Queue Manually" res_model="magento.queue.process.ept"
+                    binding_model="sync.import.magento.product.queue" view_mode="form"
+                    target="new" id="action_wizard_magento_import_product"
+                    view_id="view_queue_process_action"
+                    context="{'queue_process':'process_product_queue_manually'}"/>
+
+        <act_window name="Process Queue Manually" res_model="magento.queue.process.ept"
+                    binding_model="magento.customer.data.queue.ept" view_mode="form"
+                    target="new" id="action_wizard_magento_import_customer"
+                    view_id="view_queue_process_action"
+                    context="{'queue_process':'process_customer_queue_manually'}"/>
+
+        <!--Below view used to display, how many records are inactive while instance inactive-->
+        <record id="view_inactive_magento_instance" model="ir.ui.view">
+            <field name="name">Active/Inactive Instance Details</field>
+            <field name="model">magento.queue.process.ept</field>
+            <field name="arch" type="xml">
+                <form string="Manual Queue Process">
+                    <p colspan="2" class="alert alert-warning" role="alert">
+                        <u>
+                            <h3 style="font-weight:bold;color:#7d5a29">Note :</h3>
+                        </u>
+                        <b>
+                            <ol>
+                                During the archive instance, it will archive below data:
+                                <br/>
+                                1) Deactivate Magento layer products and it's variant.
+                                <br/>
+                                2) Deactivate related cron job(Scheduled Actions).
+                                <br/>
+                                3) Deactivate related Payment Gateway, Websites and Store Views.
+                            </ol>
+                            <ol>
+                                During the Un archive instance, it will do below:
+                                <br/>
+                                1) Check the connection between Odoo and Magento store.
+                                <br/>
+                                2) Active Magento layer products and it's variant.
+                                <br/>
+                                3) Activate related Payment Gateway, Websites and Store Views.
+                            </ol>
+                        </b>
+                    </p>
+                    <footer>
+                        <button name="magento_action_archive" string="OK" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

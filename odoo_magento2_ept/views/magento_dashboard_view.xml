@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="magento_dashboard_kanban_view" model="ir.ui.view">
+            <field name="name">Magento Dashboard</field>
+            <field name="model">magento.website</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_magento_kanban" create="false">
+                    <field name="name" />
+                    <field name="magento_instance_id" />
+                    <field name="sale_order_count"/>
+                    <field name="sale_quotations_count"/>
+                    <field name="delivery_order_count"/>
+                    <field name="invoice_count"/>
+                    <field name="refund_count"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div style="width:32% !important">
+                                <div class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <div class="o_primary">
+                                            <t t-esc="record.name.value"/>
+                                        </div>
+                                        <div class="o_secondary">
+                                            <a name="get_magento_instance_id" type="object">
+                                                <field name="magento_instance_id" class="o_secondary" />
+                                            </a>
+                                        </div>
+                                        <div class="o_secondary">
+                                            <a name="get_magento_storeviews" type="object">
+                                                <span> Store Views</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container o_kanban_card_content o_visible">
+                                    <div class="row">
+                                        <!-- Dashboard Button -->
+                                        <div id="magento_left" class="col-md-4 o_kanban_primary_left">
+                                            <div id="magento_perform_operation">
+                                                <button class="btn btn-primary" name="get_all_operation_wizard" type="object">
+                                                    <span>Operations</span>
+                                                </button>
+                                            </div>
+                                            <div id="magento_settings" style="padding-top:3px;">
+                                                <button class="btn btn-primary" name="get_magento_config_settings"
+                                                        type="object">
+                                                    <span>Settings</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- Shortcut Link -->
+                                        <div id="magento_right" class="col-md-6 o_kanban_primary_right">
+                                            <div id="sale_quotations">
+                                                <a name="get_action_magento_sales_quotations" type="object"
+                                                   class="oe_sparkline_bar_link">
+                                                    Sales Quotations (<t t-esc="record.sale_quotations_count.raw_value"/>)
+                                                </a>
+                                            </div>
+                                            <div id="sale_order">
+                                                <a name="get_action_magento_sales_orders" type="object"
+                                                   class="oe_sparkline_bar_link">
+                                                    Sales Orders (<t t-esc="record.sale_order_count.raw_value"/>)
+                                                </a>
+                                            </div>
+                                            <div id="delivery_orders">
+                                                <a name="get_action_delivery_orders" type="object"
+                                                   class="oe_sparkline_bar_link">
+                                                    Delivery Orders (<t t-esc="record.delivery_order_count.raw_value"/>)
+                                                </a>
+                                            </div>
+                                            <div id="invoices">
+                                                <a name="get_action_invoice_magento_invoices" type="object"
+                                                   class="oe_sparkline_bar_link">
+                                                    Invoices (<t t-esc="record.invoice_count.raw_value"/>)
+                                                </a>
+                                            </div>
+                                            <div id="invoices">
+                                                <a name="get_action_refund_magento_invoices" type="object"
+                                                   class="oe_sparkline_bar_link">
+                                                    Refunds (<t t-esc="record.refund_count.raw_value"/>)
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="action_magento_website_dashboard" model="ir.actions.act_window">
+            <field name="name">Magento Websites</field>
+            <field name="res_model">magento.website</field>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="magento_dashboard_kanban_view" />
+            <field name="help" type="html">
+                <div>
+                    <br />
+                    <br />
+                    <br />
+                    <p>
+                        <b>There is no any Magento Instance configured yet.</b>
+                    </p>
+                    <p>
+                        To add your first Magento Instance, go to menu
+                        <i>Magento >> Configuration >> Settings</i>
+                        and create new Instance from there.
+                        At there you can define one or
+                        more Magento Instances and
+                        configure extended options per
+                        Instance.
+                    </p>
+                </div>
+            </field>
+        </record>
+        <menuitem id="menu_main_magento_dashboard_ept" name="Dashboard"
+            parent="odoo_magento2_ept.menu_magento_root" sequence="1"
+            action="action_magento_website_dashboard" />
+    </data>
+</odoo>

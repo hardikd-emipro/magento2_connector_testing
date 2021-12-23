@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_submit_all_after">
+        <observer name="emipro_webhook_new_order" instance="Emipro\Apichange\Observer\AfterOrder"/>
+    </event>
+    <!-- <event name="customer_register_success">
+        <observer name="emipro_webhook_new_customer" instance="Emipro\Apichange\Observer\AfterCustomer"/>
+    </event>
+    <event name="controller_action_catalog_product_save_entity_after">
+        <observer name="emipro_webhook_new_product" instance="Emipro\Apichange\Observer\AfterProduct"/>
+    </event> -->
+    <!-- <event name="sales_order_invoice_save_commit_after">
+        <observer name="emipro_webhook_invoice" instance="Emipro\Apichange\Observer\AfterInvoice"/>
+    </event> -->
+    <event name="order_cancel_after">
+        <observer name="emipro_webhook_cancel_order" instance="Emipro\Apichange\Observer\AfterCancelOrder"/>
+    </event>
+</config>

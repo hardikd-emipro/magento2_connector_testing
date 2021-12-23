@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_magento_storeview_form" model="ir.ui.view">
+            <field name="name">magento.storeview.form</field>
+            <field name="model">magento.storeview</field>
+            <field name="arch" type="xml">
+                <form string="Magento Storeview" create="false" delete="false">
+                    <sheet>
+                        <h1>
+                            <field name="name" class="oe_inline" />
+                        </h1>
+                        <group>
+                            <field name="code" />
+                            <field name="magento_website_id" />
+                            <field name="magento_storeview__id" />
+                            <field name="sort_order" invisible="1" />
+                            <field name="no_sales_order_sync" />
+                            <field name="base_media_url" />
+                            <field name="team_id" options="{'no_create': True}" />
+                            <field name="lang_id" />
+                            <field name="sale_prefix" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_magento_storeview_tree" model="ir.ui.view">
+            <field name="name">magento.storeview.tree</field>
+            <field name="model">magento.storeview</field>
+            <field name="arch" type="xml">
+                <tree string="Magento Storeview" create="false" delete="false">
+                    <field name="name" />
+                    <field name="code" />
+                    <field name="no_sales_order_sync" invisible="1" />
+                    <field name="sort_order" invisible="1" />
+                    <field name="magento_website_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_magento_storeview" model="ir.actions.act_window">
+            <field name="name">Magento Storeviews</field>
+            <field name="res_model">magento.storeview</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_magento_storeview_tree" />
+        </record>
+
+        <menuitem id="menu_magento_storeview" name="Storeviews"
+            parent="odoo_magento2_ept.menu_configuration_root" sequence="4"
+            action="action_magento_storeview" />
+
+    </data>
+</odoo>

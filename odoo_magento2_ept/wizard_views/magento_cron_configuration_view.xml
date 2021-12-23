@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--This is a common view for cron configuration wizard -->
+        <record id="magento_cron_configuration_ept_form_view"
+                model="ir.ui.view">
+            <field name="name">magento.cron.configuration</field>
+            <field name="model">magento.cron.configuration</field>
+            <field name="priority">11</field>
+            <field name="arch" type="xml">
+                <form string="Manual Queue Process">
+                    <field name="magento_instance_id" invisible="1"/>
+                    <div name="import_product" attrs="{'invisible': [('magento_instance_id', '=', False)]}">
+                        <h2>Import Product</h2>
+                        <div name="import_magento_product">
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-xs-12 col-md-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="auto_import_product"
+                                               help="If Ticked, System will import Product from magento."/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="auto_import_product"
+                                               string="Auto Import product ?"/>
+                                        <div class="text-muted">
+                                        </div>
+                                    </div>
+                                    <div attrs="{'invisible': [('auto_import_product', '=', False)]}">
+                                        <field name="auto_import_product_interval_number"
+                                               attrs="{'required': [('auto_import_product', '=', True),('magento_instance_id','!=',False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_import_product_interval_type"
+                                               attrs="{'required': [('auto_import_product', '=', True),('magento_instance_id','!=',False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_import_product_next_execution"
+                                               attrs="{'required': [('auto_import_product', '=', True),('magento_instance_id','!=',False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_import_product_user_id"
+                                               attrs="{'required': [('auto_import_product', '=', True),('magento_instance_id','!=',False)]}"
+                                               class="oe_inline"/>
+                                        <span>
+                                            <h4>
+                                                <label for="do_not_update_existing_product"/>
+                                                <field name="do_not_update_existing_product"
+                                                       attrs="{'required': [('auto_import_product', '=', True),('magento_instance_id','!=',False)]}" widget="boolean_toggle" class="o_onboard_boolean_toggle"/>
+                                            </h4>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div name="export_product_stock" attrs="{'invisible': [('magento_instance_id', '=', False)]}">
+                        <h2>Export Product Stock</h2>
+                        <div name="export_magento_product_stock">
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-xs-12 col-md-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="auto_export_product_stock"
+                                               help="If Ticked, System will Export Product Stock in magento."/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="auto_export_product_stock"
+                                               string="Auto Export product Stock ?"/>
+                                        <div class="text-muted">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <field name="auto_export_product_stock_interval_number"
+                                               attrs="{'required': [('auto_export_product_stock', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_product_stock', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_export_product_stock_interval_type"
+                                               attrs="{'required': [('auto_export_product_stock', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_product_stock', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_export_product_stock_next_execution"
+                                               attrs="{'required': [('auto_export_product_stock', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_product_stock', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_export_product_stock_user_id"
+                                               attrs="{'required': [('auto_export_product_stock', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_product_stock', '=', False)]}"
+                                               class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div name="import_magento_order" attrs="{'invisible': [('magento_instance_id', '=', False)]}">
+                        <h2>Orders</h2>
+                        <div name="import_magento_order">
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-xs-12 col-md-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="auto_import_sale_orders"
+                                               help="If Ticked, System will import Order from magento."/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="auto_import_sale_orders"
+                                               string="Auto Import Order ?"/>
+                                        <div class="text-muted">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <field name="auto_import_sale_orders_interval_number"
+                                               attrs="{'required': [('auto_import_sale_orders', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_import_sale_orders', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_import_sale_orders_interval_type"
+                                               attrs="{'required': [('auto_import_sale_orders', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_import_sale_orders', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_import_sale_orders_next_execution"
+                                               attrs="{'required': [('auto_import_sale_orders', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_import_sale_orders', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_import_sale_order_user_id"
+                                               attrs="{'required': [('auto_import_sale_orders', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_import_sale_orders', '=', False)]}"
+                                               class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div name="auto_export_magento_invoice_and_shipment">
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-xs-12 col-md-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="auto_export_invoice"
+                                               help="If Ticked, System will export invoice information."/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="auto_export_invoice"
+                                               string="Auto Export Invoice Information ?"/>
+                                        <div class="text-muted">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <field name="auto_export_invoice_interval_number"
+                                               attrs="{'required': [('auto_export_invoice', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_invoice', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_export_invoice_interval_type"
+                                               attrs="{'required': [('auto_export_invoice', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_invoice', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_export_invoice_next_execution"
+                                               attrs="{'required': [('auto_export_invoice', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_invoice', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_export_invoice_user_id"
+                                               attrs="{'required': [('auto_export_invoice', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_invoice', '=', False)]}"
+                                               class="oe_inline"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="auto_export_shipment_order_status"
+                                               help="If Ticked, System will export shipment information."/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="auto_export_shipment_order_status"
+                                               string="Auto Export Shipment Information ?"/>
+                                        <div class="text-muted">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <field name="auto_export_shipment_order_status_interval_number"
+                                               attrs="{'required': [('auto_export_shipment_order_status', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_shipment_order_status', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_export_shipment_order_status_interval_type"
+                                               attrs="{'required': [('auto_export_shipment_order_status', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_shipment_order_status', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_export_shipment_order_status_next_execution"
+                                               attrs="{'required': [('auto_export_shipment_order_status', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_shipment_order_status', '=', False)]}"
+                                               class="oe_inline"/>
+                                        <field name="auto_export_shipment_order_status_user_id"
+                                               attrs="{'required': [('auto_export_shipment_order_status_user_id', '=', True),('magento_instance_id','!=',False)],'invisible': [('auto_export_shipment_order_status', '=', False)]}"
+                                               class="oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer>
+                        <button string="Save Cron Configuration"
+                                class="oe_highlight" type="object" name="save_cron_configuration"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_magento_wizard_cron_configuration_ept" model="ir.actions.act_window">
+            <field name="name">Magento Scheduled Actions Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">magento.cron.configuration</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>
